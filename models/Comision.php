@@ -2,8 +2,9 @@
 
 require_once '../core/model.master.php';
 
-class Entidad extends ModelMaster{
+class Comision extends ModelMaster{
 
+    
 
 }
 

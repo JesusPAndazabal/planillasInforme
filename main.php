@@ -204,7 +204,7 @@ if ($_SESSION['acceso'] == false){
               </li>
               <li class='nav-header'>MANTENIMIENTO</li>
                 <li class='nav-item'>
-                    <a href='main.php?view=entidad' class='nav-link btn-profile-index' style="color:white">
+                    <a href='main.php?view=personas-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
                          Personas
@@ -222,7 +222,7 @@ if ($_SESSION['acceso'] == false){
                   </li>
 
                   <li class='nav-item'>
-                    <a href='main.php?view=programPresupuestal' class='nav-link btn-profile-index' style="color:white">
+                    <a href='main.php?view=planillas-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
                          Planillas
@@ -231,7 +231,7 @@ if ($_SESSION['acceso'] == false){
                   </li>
 
                   <li class='nav-item'>
-                    <a href='main.php?view=metas-vista' class='nav-link btn-profile-index' style="color:white">
+                    <a href='main.php?view=entidad-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
                          Entidades
@@ -240,7 +240,7 @@ if ($_SESSION['acceso'] == false){
                   </li>
 
                   <li class='nav-item'>
-                    <a href='main.php?view=conceptos-vista' class='nav-link btn-profile-index' style="color:white">
+                    <a href='main.php?view=cargos-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
                          Cargos
@@ -249,7 +249,7 @@ if ($_SESSION['acceso'] == false){
                   </li>
 
                   <li class='nav-item'>
-                    <a href='main.php?view=cargos' class='nav-link btn-profile-index' style="color:white">
+                    <a href='main.php?view=comision-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
                          Comisiones
