@@ -23,6 +23,34 @@
 </div><!-- Fin del card -->
 
 
+
+<!-- Tabla de Detalle de Planilla (Oculta al principio) -->
+<div class="card border-dark" id ="detalle-planilla" style="display: none;">
+    <div class="card-body table-responsive p-4">
+        <h4>Detalle de la Planilla</h4>
+        <label for="">Numero de Documento </label>
+        <table class="table table-valign-middle table-striped text-center" id="tabla-detallePlanillas">
+            <thead>
+                <tr>
+                    <th>N° Orden</th>
+                    <th>Año</th>
+                    <th>Mes</th>
+                    <th>Cussp</th>
+                    <th>Numero de Cuenta</th>
+                    <th>Apellidos y Nombres</th>
+                    <th>Numero de Documento</th>
+                    <th>Cargo</th>
+                    <th>Boleta</th>
+                    <!-- Otros campos si es necesario -->
+                </tr>
+            </thead>
+            <tbody id = "datos-detallePlanillas">
+                <!-- Aquí se cargarán los detalles con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <!-- Configuracion de alertas personalizadas -->
 <script src="dist/js/configAlerts.js"></script> 
 
