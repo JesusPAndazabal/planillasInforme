@@ -25,7 +25,7 @@ if(isset($_GET['op'])){
                         <td>{$row['nombresApellidos']}</td>
                         <td>{$row['numeroDoc']}</td>
                         <td>{$row['descripcion']}</td>
-                        <td class='text-center'>  
+                        <td class='text-center reporte' data-idplanillaDetalle='{$row['idplanillaDetalle']}'>  
                             <button type='button'><i class='fas fa-print'></i></button>
                         </td>
                     </tr>

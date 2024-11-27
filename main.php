@@ -274,7 +274,7 @@ if ($_SESSION['acceso'] == false){
                     <a href='main.php?view=registrarboletas-vista' class='nav-link btn-profile-index' style="color:white">
                     <i class="nav-icon fas fa-file-archive"></i>
                       <p>
-                         Consultar Planillas
+                         Consultar Boletas
                       </p>
                     </a>                  
                   </li>

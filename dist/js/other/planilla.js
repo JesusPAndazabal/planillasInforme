@@ -86,4 +86,10 @@ function listarDetPlanillas(idPlanilla) {
     });
 }
 
+$("#tabla-detallePlanillas").on("click", ".reporte", function () {
+    let idplanillaDetalle = $(this).attr("data-idplanillaDetalle");
+    console.log("click en el reporte", idplanillaDetalle);
+    window.open("reports/reporte.php?idplanillaDetalle=" + idplanillaDetalle);
+});
+
 listarPlanillas();

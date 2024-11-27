@@ -33,17 +33,6 @@ SELECT *
 FROM entidades;
 
 
-SELECT DET.idplanillaDetalle , USU.nomuser , ENT.descripcion , DET.numRegistro , PLAN.mes , PLAN.anio , PER.numeroDoc , DET.cussp ,DET.numCuenta, PER.nombresApellidos, DET.fechaIngreso,  
-CARG.descripcion , DET.asignacionFamiliar , DET.sueldoBasico  ,DET.reintegros  , DET.montoAguinaldo , DET.montoInasistencia , DET.montoRem, 
-COM.tipo , DET.obliOnp , COM.nombre,DET.afpOblig, DET.comisionFlujo ,  DET.montoprimaSeguro , DET.essaludVida,  DET.totalDescuento , DET.netoPagar , DET.ssalud ,DET.montototalAporte
-FROM planillasDetalles DET
-INNER JOIN usuarios USU ON USU.idusuario = DET.idusuario
-INNER JOIN personas PER ON PER.idpersona = DET.idpersona
-INNER JOIN cargos CARG ON CARG.idcargo = DET.idcargo 
-INNER JOIN entidades ENT ON ENT.identidad = DET.identidad
-INNER JOIN comisiones COM ON COM.idcomision = DET.idcomision 
-INNER JOIN planillas PLAN ON PLAN.idplanilla = DET.idplanilla
-
 
 CREATE VIEW vs_planillaDetalle AS 
 SELECT DET.idplanillaDetalle , USU.nomuser , ENT.descripcion AS 'descripcionEnt' , DET.numRegistro , PLAN.idplanilla,
@@ -90,7 +79,14 @@ BEGIN
 	SELECT * FROM vs_planillas;
 END $$
 
-CALL spu_listar_planillas()
+
+-- Obtener un registro por el id de el detalle de la planilla 
+DELIMITER $$
+CREATE PROCEDURE spu_obtener_detalle(IN _idplanillaDetalle INT)
+BEGIN 
+	SELECT * FROM vs_planillaDetalle
+		WHERE idplanillaDetalle = _idplanillaDetalle;
+END $$
 
 
 

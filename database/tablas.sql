@@ -64,7 +64,7 @@ CREATE TABLE planillasDetalles
 	numRegistro		INT NULL, -- orden columna A
 	cussp			VARCHAR(100) NOT NULL, -- columna E
 	numCuenta		INT NOT NULL, -- columna F
-	fechaIngreso		DATETIME NOT NULL, -- Columna H
+	fechaIngreso		DATE NOT NULL, -- Columna H
 	asignacionFamiliar	DECIMAL(10,2) NULL, -- null columna J
 	sueldoBasico		DECIMAL(10,2) NULL, -- columna K
 	reintegros		DECIMAL(10,2) NULL, -- null columna L
