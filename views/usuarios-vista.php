@@ -18,32 +18,23 @@
           <div class="row mb-3">
             <div class="col-md-3">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalbuscarEmpleado">
-                Cargar Empleado
+                Cargar Persona
               </button>
             </div>
           </div>
-          <div class="row">
+            <div class="row">
               <div class="col-md-6">
-                <label for="">Apellidos :</label>
-                <input type="text" class="form-control" id ="apellidosuser" autocomplete = "off">
+                <label for="">Username del Usuario :</label>
+                <input type="text" class="form-control" id ="nomuser" autocomplete = "off">
               </div>
               <div class="col-md-6">
-                <label for="">Nombres : </label>
-                <input type="text" class="form-control"  id="nombresuser" autocomplete = "off">
+                <label for="">Direcciòn de correo :</label>
+                <input type="email"  class="form-control" id="correo" autocomplete = "off">
+                <!-- <label for="">Nombre de Usuario :</label>
+                <input type="text"  class="form-control" id="nomuser" autocomplete = "off"> -->
               </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <label for="">Direcciòn de correo :</label>
-              <input type="email"  class="form-control" id="correo" autocomplete = "off">
-              <!-- <label for="">Nombre de Usuario :</label>
-              <input type="text"  class="form-control" id="nomuser" autocomplete = "off"> -->
-            </div>
-            <div class="col-md-6">
-              <label for="">Numero de Dni :</label>
-              <input type="text"  class="form-control" id="numerodni" autocomplete = "off" maxlength = "8">
-            </div>
-          </div><br>
+      
+            </div><br>
           <div class="row">
             <div class="col-md-6">
               <label for="nivelacceso">Tipo de usuario:</label>
@@ -79,7 +70,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-success">
-        <h5 class="modal-title" id="exampleModalLabel">Buscar Empleado</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Buscar Persona</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -87,7 +78,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6">
-            <label for="nivelacceso">Ingrese el Dni del Empleado:</label>
+            <label for="nivelacceso">Ingrese el Dni de la Persona:</label>
           </div>
           <div class="col-md-6">
             <input type="text"  class="form-control" id="dniEmpleadoBuscar" autocomplete = "off">
@@ -165,11 +156,11 @@
             <thead>
             <tr>
                 <th>Nª</th>
-                <th>Nombres y Apellidos</th>
-                <th>Numero de documento</th>
-                <th>Tipo de usuario</th>
-                <th>Estado</th>
-                <th>Asignar Rol</th>
+                <th>USUARIO</th>
+                <th>CORREO</th>
+                <th>NIVEL DE ACCESO</th>
+                <th>ESTADO</th>
+                <th>ASIGNAR ROL</th>
             </tr>
             </thead>
             <tbody id="datos-usuarios">

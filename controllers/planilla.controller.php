@@ -4,10 +4,12 @@ session_start();
 
 require_once '../models/Planilla.php';
 require_once '../models/Serverside.php';
+require_once '../models/PlanillaDetalle.php';
 
 if(isset($_GET['op'])){
 
     $planilla= new Planilla();
+    $detallePlanilla = new DetallePlanilla();
 
     function listarDetallePlanillas($data){
         if(count($data) <= 0){
@@ -52,7 +54,6 @@ if(isset($_GET['op'])){
     }
 
 
-
     /* if($_GET['op'] == 'listarPlanillas'){
         $data = $serverSide->get("vs_planillas", "idplanilla", array("idplanilla", "anio", "mes"));
     } */
@@ -75,12 +76,17 @@ if(isset($_GET['op'])){
         listarPlanillasVista($data);
     }
 
+    // Nuevo caso para buscar detalle planilla por número de documento o nombres
+    if ($_GET['op'] == 'buscarDetallePlanilla') {
+        $params = [
+            'numeroDoc' => $_GET['numeroDoc'] ?? null,
+            'nombresApellidos' => $_GET['nombresApellidos'] ?? null
+        ];
+
+        $data = $detallePlanilla->buscarplanillaDetalle($params);
+        listarDetallePlanillas($data);
+    }
+
 }
-
-
-
-   
-
-
 
 ?>

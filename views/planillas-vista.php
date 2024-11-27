@@ -27,8 +27,32 @@
 <!-- Tabla de Detalle de Planilla (Oculta al principio) -->
 <div class="card border-dark" id ="detalle-planilla" style="display: none;">
     <div class="card-body table-responsive p-4">
-        <h4>Detalle de la Planilla</h4>
-        <label for="">Numero de Documento </label>
+        <h4>Buscar Detalle de la Planilla</h4>
+
+        <div class="d-flex justify-content-center">
+    <div class="row align-items-end">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="numeroDoc">N° Documento</label>
+                <input type="text" id="numeroDoc" class="form-control" placeholder="N° documento">
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="nombresApellidos">Nombres y Apellidos</label>
+                <div class="input-group">
+                    <input type="text" id="nombresApellidos" class="form-control" placeholder="Nombres y Apellidos">
+                    <div class="input-group-append">
+                        <button id="btnBuscarPlanilla" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
         <table class="table table-valign-middle table-striped text-center" id="tabla-detallePlanillas">
             <thead>
                 <tr>

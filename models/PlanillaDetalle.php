@@ -12,6 +12,14 @@ class DetallePlanilla extends ModelMaster{
         }
     }
 
+    public function buscarplanillaDetalle(array $data){
+        try{
+            return parent::execProcedure($data , "spu_buscar_planilla" , true);
+        }catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
 }
 
 ?>

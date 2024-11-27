@@ -15,6 +15,8 @@ CREATE TABLE usuarios
 (
 	idusuario		INT AUTO_INCREMENT PRIMARY KEY,
 	nomuser 		VARCHAR(30) NOT NULL,
+	correo			VARCHAR(200) NULL,
+	telefono		CHAR(11) NULL,
 	nivelacceso		CHAR(1) NOT NULL,
 	claveacceso		VARCHAR(200)NOT NULL,
 	estado			CHAR(1) NOT NULL DEFAULT '1'

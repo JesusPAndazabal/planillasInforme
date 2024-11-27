@@ -89,4 +89,56 @@ BEGIN
 END $$
 
 
+DELIMITER $$
+CREATE PROCEDURE spu_buscar_planilla
+(
+    IN _numeroDoc VARCHAR(11),
+    IN _nombresApellidos VARCHAR(200)
+)
+BEGIN
+    SELECT * 
+    FROM vs_planillaDetalle
+    WHERE ( (_numeroDoc IS NULL OR _numeroDoc = '' OR numeroDoc = _numeroDoc) )
+      AND ( (_nombresApellidos IS NULL OR _nombresApellidos = '' OR nombresApellidos LIKE CONCAT('%', _nombresApellidos, '%')) );
+END $$
+
+-- USUARIOS
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_buscarUsuariosRol
+(
+	IN _nivelacceso CHAR(1),
+	IN _search 	VARCHAR(50)
+)
+BEGIN
+	SELECT * FROM usuarios
+		WHERE nivelacceso = _nivelacceso AND nomuser LIKE CONCAT('%', _search ,'%');
+END $$
+
+-- Procedimiento para la busqueda por nombres de usuarios
+DELIMITER $$
+CREATE PROCEDURE spu_buscarUsuarios
+(
+	IN _search 	VARCHAR(50)
+)
+BEGIN
+	SELECT * FROM usuarios
+		WHERE nomuser LIKE CONCAT('%', _search ,'%');
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_buscardniPersona(IN _numeroDoc VARCHAR(11))
+BEGIN 
+	SELECT * 
+	FROM personas WHERE numeroDoc =  _numeroDoc;
+END $$
+
+SELECT * FROM personas
+CALL spu_buscardniPersona (44292928)
+
+
+
+
 

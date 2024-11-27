@@ -2,6 +2,7 @@
 var idusuario = localStorage.getItem("usuarioBoleta");
 var cadena1 = "";
 var cadena2 = "";
+var nombrePersona = "";
 var claveGenerada;
 let fecha = new Date();
 let añoActual = fecha.getFullYear();
@@ -68,6 +69,55 @@ function listarUsuarios(){
             });
         }
     });
+}
+
+//Funcion para registrar los Usuarios en el modal
+function registrarUsuario(){
+    
+    var formData = new FormData();
+
+    let nomuser         = $("#nomuser").val();
+    let correo          = $("#correo").val();
+    let telefono        = $("#telefono").val();
+    let nivelacceso     = $("#nivelacceso").val();
+
+
+
+    if(nomuser == '' || nivelacceso == '' || correo == ""){
+        alertWarning('Complete los datos solicitados');
+    }else{  
+            sweetAlertConfirmQuestionSave("¿Está seguro de registrar este usuario?").then((confirm) => {
+                if(confirm.isConfirmed){
+                    formData.append("op", "registrarUsuario");
+                    formData.append("nomuser", nomuser);
+                    formData.append("correo", correo);
+                    formData.append("telefono", telefono);
+                    formData.append("nivelacceso", nivelacceso);
+
+                    $.ajax({
+                        url: 'controllers/usuario.controller.php',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        success: function(e){
+                            console.log(e);
+                            alertSuccess('Usuario registrado');
+                            $("#modal-cargaCorreo").modal('show');
+                            enviarCorreo();
+                            $("#correo").val('');
+                            $("#telefono").val('');
+
+                            $("#staticBackdrop").modal('hide');
+                            listarUsuarios();
+                        }
+                    });
+                }
+            });
+        
+    }
+
 }
 
 //Funcion para registrar los Usuarios en el modal
@@ -148,17 +198,13 @@ function registrarPersona(){
 //Funcion para en envio del correo
 function enviarCorreo(){
     let correo          = $("#correo").val();
-    let numerodni       = $("#numerodni").val();
-    let apellidosuser   = $("#apellidosuser").val();
-    let nombresuser     = $("#nombresuser").val();
-
-    let usuario =  apellidosuser + ' '  + nombresuser;
+    let numerodni       = $("#nomuser").val();
 
     var datos = {
         'op'        : 'enviarCorreo',
         'email'     : correo,
         'numerodni' : numerodni,
-        'usuario'   : usuario
+        'usuario'   : nombrePersona
     };
 
     $.ajax({
@@ -361,6 +407,30 @@ function obtenerUsuarios(){
     }); 
 }
 
+//bUSCAR PERSONA
+function buscarPersona(){
+
+    var codigodni = $("#dniEmpleadoBuscar").val();
+    console.log("dni" , codigodni);
+
+    $.ajax({
+        url: 'controllers/persona.controller.php',
+        type: 'GET',
+        dataType: 'JSON',
+        data: { op: 'buscarPersona', numeroDoc: codigodni }, 
+        success: function (datos) {
+            $("#modalbuscarEmpleado").modal('hide');
+            console.log(datos);
+            $("#nomuser").val(datos[0].numeroDoc);
+            nombrePersona = datos[0].nombresApellidos;
+
+        },
+        error: function (xhr, status, error) {
+            alertError("El numero de documento es incorrecto");
+        }
+    }); 
+}
+
 //funcion para moestrar las contraseñas - Perfil
 function mostrarClaves(){
     if(claveaccesoAntigua.type == "password" || claveaccesoNueva1 == "password" || claveaccesoNueva2 == "password"){
@@ -397,6 +467,19 @@ function estadoUsuario(idusuario, estado){
         }
     });
 }
+
+
+//Boton para buscar el dni del empleado
+$("#btnCargarEmpleado").click(function(){
+    console.log("CLICK DEL BOTO");
+    buscarPersona();
+    
+});
+
+//Evento para el boton de registrar Usuario
+$("#registrarUsuario").click(function(){
+    registrarUsuario();
+});
 
 //Evento para la caja de texto de la contraseña
 $("#claveacceso").keypress(function (event){

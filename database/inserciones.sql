@@ -1,5 +1,5 @@
-INSERT INTO usuarios (nivelacceso , nomuser , claveacceso)VALUES
-			('A' ,'jesus', '123456');
+INSERT INTO usuarios (nivelacceso , nomuser , correo , claveacceso)VALUES
+			('A' ,'jesus', 'jesusmauricio@gmail.com', '123456');
 			
 INSERT INTO entidades (descripcion , direccion , ruc , numEjecutora , region , provincia )
 	VALUES ('Ugel Huaytara' , 'direccion de la entidad' , '54789632596' , '1' , 'chincha alta' , 'chincha alta');

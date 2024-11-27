@@ -15,7 +15,6 @@ if(isset ($_GET['op'])){
             foreach($data as $row){
 
                 $nivelacceso = $row['nivelacceso'];
-                $fechabaja = $row['fechabaja'];
                 $estado = $row['estado'] == '1' ? 'checked' : '0';
 
                 if($nivelacceso == "A"){
@@ -32,18 +31,12 @@ if(isset ($_GET['op'])){
                     <button class='dropdown-item usuario' data-idusuario='{$row['idusuario']}' type='button'>Usuario</button>";
                 }
 
-                if($fechabaja == null){
-                    $fechabaja = "Sin fecha";
-                }
-
                 echo "
                     <tr>
                         <td>{$row['idusuario']}</td>
-                        <td>{$row['usuario']}</td>
                         <td>{$row['nomuser']}</td>
                         <td>{$row['correo']}</td>
                         <td class='text-success text-bold'>$nivelacceso</td>
-                        <td>{$row['fecharegistro']}</td>
                         <td>
                             <div class='custom-control custom-switch'>
                                 <input type='checkbox' class='custom-control-input switch-role estado' data-idusuario='{$row['idusuario']}' {$estado}>
@@ -234,6 +227,18 @@ if(isset($_POST['op'])){
 
         $usuario->registrarPersona($datosEnviar);
         echo $datosEnviar;
+    }
+
+    if($_POST['op'] == 'registrarUsuario'){
+
+        $datosEnviar = [
+            "nomuser"       => $_POST['nomuser'],
+            "correo"        => $_POST['correo'],
+            "telefono"      => $_POST['telefono'],
+            "nivelacceso"   => $_POST['nivelacceso']
+        ];
+
+        $usuario->registrarUsuario($datosEnviar);
     }
 
     if($_POST['op'] == 'actualizarUsuario'){
