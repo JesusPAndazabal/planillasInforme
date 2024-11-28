@@ -1,3 +1,4 @@
+var numeroDocPlanilla = localStorage.getItem("nomuserBoleta");
 
 function listarPlanillas(){
 
@@ -84,6 +85,48 @@ function listarDetPlanillas(idPlanilla) {
     });
 }
 
+function listarDetPlanillasDni(numeroDocPlanilla) {
+
+    console.log(localStorage.getItem("nomuserBoleta"));
+    datos = {
+        'op': 'buscardetalleDni',
+        'numeroDoc': numeroDocPlanilla // Pasar el ID de la planilla
+    };
+
+    console.log(datos);
+
+    $.ajax({
+        url: 'controllers/planilla.controller.php',
+        type: 'GET',
+        data: datos,
+        success: function (e) {
+            $("#tabla-consulta").DataTable().destroy();
+
+            // Agregar datos en el cuerpo de la tabla detalle
+            $("#datos-consulta").html(e);
+
+            console.log(e);
+
+            // Volver a generar el dataTable
+            $("#tabla-consulta").DataTable({
+                paging: true,
+                lengthChange: true,
+                pageLength: 8,
+                language: { url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json' },
+                searching: false,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                responsive: true
+            });
+        }
+    });
+}
+
+
+
+
+
 function buscarDetallePlanilla() {
     let numeroDoc = $("#numeroDoc").val().trim();
     let nombresApellidos = $("#nombresApellidos").val().trim();
@@ -131,4 +174,11 @@ $("#tabla-detallePlanillas").on("click", ".reporte", function () {
     window.open("reports/reporte.php?idplanillaDetalle=" + idplanillaDetalle);
 });
 
+$("#tabla-consulta").on("click", ".reporte", function () {
+    let idplanillaDetalle = $(this).attr("data-idplanillaDetalle");
+    console.log("click en el reporte", idplanillaDetalle);
+    window.open("reports/reporte.php?idplanillaDetalle=" + idplanillaDetalle);
+});
+
 listarPlanillas();
+listarDetPlanillasDni(numeroDocPlanilla);

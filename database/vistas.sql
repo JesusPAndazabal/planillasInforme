@@ -135,6 +135,13 @@ BEGIN
 	FROM personas WHERE numeroDoc =  _numeroDoc;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_buscarDniPlanilla(in _numeroDoc varchar(11))
+begin 
+	select *
+	from vs_planillaDetalle where numeroDoc = _numeroDoc;
+end $$
+
 SELECT * FROM personas
 CALL spu_buscardniPersona (44292928)
 

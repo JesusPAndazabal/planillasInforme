@@ -37,6 +37,8 @@ if(isset($_GET['op'])){
         }
     }
 
+    
+
     function listarPlanillasVista($data){
         if(count($data) <= 0){
             echo "<td>No hay datos en esta tabla</td>";
@@ -84,6 +86,15 @@ if(isset($_GET['op'])){
         ];
 
         $data = $detallePlanilla->buscarplanillaDetalle($params);
+        listarDetallePlanillas($data);
+    }
+
+    if ($_GET['op'] == 'buscardetalleDni') {
+        $params = [
+            'numeroDoc' => $_GET['numeroDoc'] ?? null
+        ];
+
+        $data = $detallePlanilla->buscarplanillaDni($params);
         listarDetallePlanillas($data);
     }
 

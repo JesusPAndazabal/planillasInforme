@@ -190,7 +190,12 @@ if ($_SESSION['acceso'] == false){
       <!-- Sidebar Menu -->
       <nav class="mt-1">
         <ul class="nav nav-pills nav-sidebar text-sm flex-column nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
-        <h5 class="text-center text-white text-bold"></h5>
+          <div class="card" style="width: 14.5rem;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" style="background-color: #17a2b8;"><h5 class="text-center text-white mb-2 text-bold"><?= $_SESSION['nivelacceso'];?><i class="fas fa-user-lock ml-2"></i></h5></li>
+            </ul>
+          </div>
+        <!-- <h5 class="text-center text-white text-bold"></h5> -->
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
@@ -202,82 +207,108 @@ if ($_SESSION['acceso'] == false){
                   </p>
                 </a>
               </li>
-              <li class='nav-header'>MANTENIMIENTO</li>
-                <li class='nav-item'>
-                    <a href='main.php?view=personas-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Personas
-                      </p>
-                    </a>                  
-                  </li>
+              
+                      <?php
+                        if($_SESSION['nivelacceso'] == "Administrador" ){
+                            echo "
+                              <li class='nav-header'>MANTENIMIENTO</li>
+                              <li class='nav-item'>
+                                <a href='main.php?view=personas-vista' class='nav-link btn-profile-index' style='color:white'>
+                                <i class='nav-icon fas fa-file-archive'></i>
+                                  <p>
+                                    Personas
+                                  </p>
+                                </a>                  
+                              </li>
+                            ";
+                        }
+                      ?>  
+              
+                  <?php
+                    if($_SESSION['nivelacceso'] == "Administrador" ){
+                      echo "
+                        <li class='nav-item'>
+                          <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style='color:white'>
+                          <i class='nav-icon fas fa-file-archive'></i>
+                            <p>
+                              Usuarios
+                            </p>
+                          </a>                  
+                        </li>
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Usuarios
-                      </p>
-                    </a>                  
-                  </li>
+                         <li class='nav-item'>
+                          <a href='main.php?view=planillas-vista' class='nav-link btn-profile-index' style='color:white'>
+                          <i class='nav-icon fas fa-file-archive'></i>
+                            <p>
+                              Planillas
+                            </p>
+                          </a>                  
+                        </li>
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=planillas-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Planillas
-                      </p>
-                    </a>                  
-                  </li>
+                        <li class='nav-item'>
+                          <a href='main.php?view=entidad-vista' class='nav-link btn-profile-index' style='color:white'>
+                          <i class='nav-icon fas fa-file-archive'></i>
+                            <p>
+                              Entidades
+                            </p>
+                          </a>                  
+                        </li>
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=entidad-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Entidades
-                      </p>
-                    </a>                  
-                  </li>
+                        <li class='nav-item'>
+                          <a href='main.php?view=cargos-vista' class='nav-link btn-profile-index' style='color:white'>
+                          <i class='nav-icon fas fa-file-archive'></i>
+                            <p>
+                              Cargos
+                            </p>
+                          </a>                  
+                        </li>
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=cargos-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Cargos
-                      </p>
-                    </a>                  
-                  </li>
+                        <li class='nav-item'>
+                          <a href='main.php?view=comision-vista' class='nav-link btn-profile-index' style='color:white'>
+                          <i class='nav-icon fas fa-file-archive'></i>
+                            <p>
+                              Comisiones
+                            </p>
+                          </a>                  
+                        </li>
+                      ";
+                    }
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=comision-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Comisiones
-                      </p>
-                    </a>                  
-                  </li>
-
-
-    
-                <li class='nav-header'>PLANILLAS</li>
+                  ?>
                   
-                  <li class='nav-item'>
-                    <a href='main.php?view=subirPlanillas-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Subir Planillas
-                      </p>
-                    </a>                  
-                  </li>
+                <li class='nav-header'>PLANILLAS</li>
 
-                  <li class='nav-item'>
-                    <a href='main.php?view=registrarboletas-vista' class='nav-link btn-profile-index' style="color:white">
-                    <i class="nav-icon fas fa-file-archive"></i>
-                      <p>
-                         Consultar Boletas
-                      </p>
-                    </a>                  
-                  </li>
+                      <?php
+                        if($_SESSION['nivelacceso'] == "Administrador" ){
+                            echo "
+                              <li class='nav-item'>
+                                <a href='main.php?view=subirPlanillas-vista' class='nav-link btn-profile-index' style='   color:white'>
+                                <i class='nav-icon fas fa-file-archive'></i>
+                                  <p>
+                                    Subir Planillas
+                                  </p>
+                                </a>                  
+                              </li>
+                            ";
+                        }
+                      ?>  
+
+                      <?php
+                        if($_SESSION['nivelacceso'] == "Consultas" ){
+                            echo "
+                              <li class='nav-item'>
+                                <a href='main.php?view=consultaBoletas-vista  ' class='nav-link btn-profile-index' style='color:white'>
+                                <i class='nav-icon fas fa-file-archive'></i>
+                                  <p>
+                                    Consultar Boletas
+                                  </p>
+                                </a>                  
+                              </li>
+                            ";
+                        }
+                      ?>  
+
+                  
                 </li>
 
         </ul>
@@ -424,9 +455,8 @@ if ($_SESSION['acceso'] == false){
       $("#content-data").load(`views/inicio.php`);
   });
 
-      localStorage.setItem("usuarioBoleta" , <?php echo $_SESSION['idusuario'];?>);
-
- 
+  localStorage.setItem("nomuserBoleta", "<?php echo htmlspecialchars($_SESSION['nomuser']); ?>");
+      
 </script>
 </body>
 </html>

@@ -478,6 +478,7 @@ $("#btnCargarEmpleado").click(function(){
 
 //Evento para el boton de registrar Usuario
 $("#registrarUsuario").click(function(){
+
     registrarUsuario();
 });
 

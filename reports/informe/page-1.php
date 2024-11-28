@@ -78,8 +78,8 @@
             </thead>
                 <tbody>
                     <tr style='border-bottom: 1px solid #ddd;'>
-                        <th style='padding: 3px; text-align: left;'>REMUNERACION O JORNAL BASICO</th>
-                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['montoRem']}"; ?></th>
+                        <th style='padding: 3px; text-align: left;'>SUELDO BASICO</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['sueldoBasico']}"; ?></th>
                     </tr>
                     <tr style='border-bottom: 1px solid #ddd;'>
                         <th style='padding: 3px; text-align: left;'>ASIGNACIÓN FAMILIAR</th>
@@ -88,6 +88,10 @@
                     <tr style='border-bottom: 1px solid #ddd;'>
                         <th style='padding: 3px; text-align: left;'>REINTEGRO</th>
                         <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['reintegros']}"; ?></th>
+                    </tr>  
+                    <tr style='border-bottom: 1px solid #ddd;'>
+                        <th style='padding: 3px; text-align: left;'>AGUINALDO</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['montoAguinaldo']}"; ?></th>
                     </tr>    
                 </tbody>
             </table>
@@ -105,6 +109,14 @@
             </thead>
                 <tbody>
                     <tr style='border-bottom: 1px solid #ddd;'>
+                        <th style='padding: 3px; text-align: left;'>ONP OBLIGATORIO</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['obliOnp']}"; ?></th>
+                    </tr>
+                    <tr style='border-bottom: 1px solid #ddd;'>
+                        <th style='padding: 3px; text-align: left;'>AFP OBLIGATORIO</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['afpOblig']}"; ?></th>
+                    </tr>
+                    <tr style='border-bottom: 1px solid #ddd;'>
                         <th style='padding: 3px; text-align: left;'>PRIMA DE SEGURO AFP</th>
                         <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['montoprimaSeguro']}"; ?></th>
                     </tr>
@@ -115,6 +127,14 @@
                     <tr style='border-bottom: 1px solid #ddd;'>
                         <th style='padding: 3px; text-align: left;'>DESCUENTOS / INASISTENCIAS</th>
                         <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['montoInasistencia']}"; ?></th>
+                    </tr> 
+                    <tr style='border-bottom: 1px solid #ddd;'>
+                        <th style='padding: 3px; text-align: left;'>COMISIÓN % SOBRE R.A</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['comisionFlujo']}"; ?></th>
+                    </tr>  
+                    <tr style='border-bottom: 1px solid #ddd;'>
+                        <th style='padding: 3px; text-align: left;'>SALUD</th>
+                        <th style='padding: 3px; text-align: right;'><br><?php foreach ($datosObtenidos as $clave) echo "{$clave['ssalud']}"; ?></th>
                     </tr>  
                 </tbody>
             </table>
@@ -124,10 +144,16 @@
 
 <br>
 
-<table  class="tabla-datos">
+<table  class="tabla-datos2">
 
     <tr>
-        <td id="th" style="width: 169%;background-color: #95ceda;"><strong>NETO A PAGAR:</strong><?php foreach ($datosObtenidos as $clave) echo "{$clave['netoPagar']}"; ?></td>
+        <td id="th" style="width: 85%;background-color: #95ceda;"><strong>TOTAL REMUNERACION:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php foreach ($datosObtenidos as $clave) echo "{$clave['montoRem']}"; ?></td>
+        <td id="th" style="width: 83%;background-color: #95ceda;"><strong>TOTAL DESCUENTO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php foreach ($datosObtenidos as $clave) echo "{$clave['totalDescuento']}"; ?></td>
+    </tr>
+
+    <tr>
+        <td id="th" style="width: 85%;background-color: #95ceda;"><strong>REMUNERACION NETA:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php foreach ($datosObtenidos as $clave) echo "{$clave['netoPagar']}"; ?></td>
+        <td id="th" style="width: 83%;background-color: #95ceda;"><strong>TOTAL APORTES:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php foreach ($datosObtenidos as $clave) echo "{$clave['montototalAporte']}"; ?></td>
     </tr>
     
 </table>

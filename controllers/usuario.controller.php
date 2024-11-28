@@ -21,14 +21,10 @@ if(isset ($_GET['op'])){
                     $nivelacceso = "Administrador";
                     $menu = "<button class='dropdown-item usuario' data-idusuario='{$row['idusuario']}' type='button'>Usuario</button>
                     <button class='dropdown-item revisador' data-idusuario='{$row['idusuario']}'  type='button'>Revisador</button>";
-                }else if($nivelacceso == "U"){
-                    $nivelacceso = "Usuario";
+                }else if($nivelacceso == "C"){
+                    $nivelacceso = "Usuario-Consultas";
                     $menu = "<button class='dropdown-item admin' data-idusuario='{$row['idusuario']}'  type='button'>Administrador</button>
                     <button class='dropdown-item revisador' data-idusuario='{$row['idusuario']}' type='button'>Revisador</button>";
-                }else if($nivelacceso == "R"){
-                    $nivelacceso = "Revisador";
-                    $menu = "<button class='dropdown-item admin' data-idusuario='{$row['idusuario']}'  type='button'>Administrador</button>
-                    <button class='dropdown-item usuario' data-idusuario='{$row['idusuario']}' type='button'>Usuario</button>";
                 }
 
                 echo "
@@ -41,16 +37,6 @@ if(isset ($_GET['op'])){
                             <div class='custom-control custom-switch'>
                                 <input type='checkbox' class='custom-control-input switch-role estado' data-idusuario='{$row['idusuario']}' {$estado}>
                                 <label class='custom-control-label' for='{$row['idusuario']}'></label>
-                            </div>
-                        </td>
-                        <td class='text-left'>  
-                            <div class='btn-group'>
-                                <button type='button' class='btn btn-success dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
-                                Acción
-                                </button>
-                                <div class='dropdown-menu dropdown-menu-right'>
-                                    $menu
-                                </div>
                             </div>
                         </td>
                     </tr>
@@ -82,11 +68,7 @@ if(isset ($_GET['op'])){
 
                 if($rol == 'A'){
                     $rol = "Administrador";
-                }elseif($rol == 'U'){
-                    $rol = "Digitador";
-                } elseif($rol == 'R'){
-                    $rol = "Tesorero";
-                } elseif($rol == 'C'){
+                }elseif($rol == 'C'){
                     $rol = "Consultas";
                 } 
 

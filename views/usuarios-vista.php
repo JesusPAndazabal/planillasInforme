@@ -40,9 +40,7 @@
               <label for="nivelacceso">Tipo de usuario:</label>
                 <select class="custom-select" id="nivelacceso">
                   <option value="A">Administrador</option>
-                  <option value="U" selected>Digitador</option>
-                  <option value="R">Tesorero</option>
-                  <option value="C">Usuario - Consulta</option>
+                  <option value="C" selected>Usuario - Consulta</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -124,7 +122,6 @@
                 <select class="custom-select" id="typeuser">
                   <option value="">Todos</option>
                   <option value="A">Administradores</option>
-                  <option value="P">Planilleros</option>
                   <option value="C">Usuarios - Consultas</option>
                 </select>
               </div>
@@ -160,7 +157,6 @@
                 <th>CORREO</th>
                 <th>NIVEL DE ACCESO</th>
                 <th>ESTADO</th>
-                <th>ASIGNAR ROL</th>
             </tr>
             </thead>
             <tbody id="datos-usuarios">
