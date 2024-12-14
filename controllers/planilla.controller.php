@@ -37,8 +37,6 @@ if(isset($_GET['op'])){
         }
     }
 
-    
-
     function listarPlanillasVista($data){
         if(count($data) <= 0){
             echo "<td>No hay datos en esta tabla</td>";
@@ -56,9 +54,9 @@ if(isset($_GET['op'])){
     }
 
 
-    /* if($_GET['op'] == 'listarPlanillas'){
-        $data = $serverSide->get("vs_planillas", "idplanilla", array("idplanilla", "anio", "mes"));
-    } */
+    if($_GET['op'] == 'listarplanillasGeneral'){
+        $data = $serverSide->get("vs_planillaDetalle", "idplanillaDetalle", array("idplanillaDetalle","nombresApellidos", "numeroDoc" , "anio", "mes", "descripcion"));
+    } 
     
     if($_GET['op'] == 'listarDetallePlanillas'){
     

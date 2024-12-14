@@ -123,6 +123,24 @@ function listarDetPlanillasDni(numeroDocPlanilla) {
     });
 }
 
+function listarConsultasGeneral(){
+    var tabla = $("#tabla-consultasGeneral").DataTable();
+    tabla.destroy();    
+
+    tabla = $("#tabla-consultasGeneral").DataTable({
+        "processing"    : true,
+        "order"         : [[0, "desc"]],
+        "serverSide"    : true,
+        "autoWidth"     : false,
+        "sAjaxSource"   : 'controllers/planilla.controller.php?op=listarplanillasGeneral',
+        "lengthChange"  : true,
+        "pageLength"    : 8,
+        "language"      : { url : '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'},
+        "dom"           : domtableBasic,
+        "buttons"       : buttonsTableMaster,
+        "columnDefs"    : columnDefsGeneral
+    });
+} 
 
 
 
@@ -162,6 +180,23 @@ function buscarDetallePlanilla() {
     });
 }
 
+$("#numeroDocConsulta").keyup(function(){
+    var table = $("#tabla-consultasGeneral").DataTable();
+    table.column($(this).data('index')).search(this.value).draw();
+});
+
+$("#anioConsulta").keyup(function(){
+    var table = $("#tabla-consultasGeneral").DataTable();
+    table.column($(this).data('index')).search(this.value).draw();
+});
+
+$("#mesConsulta").keyup(function(){
+    var table = $("#tabla-consultasGeneral").DataTable();
+    table.column($(this).data('index')).search(this.value).draw();
+});
+
+
+
 // Ejecutar búsqueda cuando se hace clic en el botón
 $("#btnBuscarPlanilla").on("click", function () {
     buscarDetallePlanilla();
@@ -180,5 +215,12 @@ $("#tabla-consulta").on("click", ".reporte", function () {
     window.open("reports/reporte.php?idplanillaDetalle=" + idplanillaDetalle);
 });
 
+$("#tabla-consultasGeneral").on("click", ".reporte", function () {
+    let idplanillaDetalle = $(this).attr("data-idplanillaDetalle");
+    console.log("click en el reporte", idplanillaDetalle);
+    window.open("reports/reporte.php?idplanillaDetalle=" + idplanillaDetalle);
+});
+
 listarPlanillas();
+listarConsultasGeneral();
 listarDetPlanillasDni(numeroDocPlanilla);

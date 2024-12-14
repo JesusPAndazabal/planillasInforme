@@ -167,12 +167,8 @@ if ($_SESSION['acceso'] == false){
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <!-- <img src="dist/img/logo-editado-5.png" alt="" class="logo"> -->
-
-  
-      <h4 class="brand-text font-weight-bold text-center mt-4" style="color:white"> Planillas Cas </h4>
-    
+    <a href="#" class="brand-link mt-3">
+      <img src="dist/img/logoHuaytara.png" alt="" class="logo" style="width: 230px;">
     </a>
 
     <!-- Sidebar -->
@@ -203,7 +199,7 @@ if ($_SESSION['acceso'] == false){
                 <a href='main.php' class='nav-link' style="color:white">
                   <i class='nav-icon fas fa-home' ></i>
                   <p>
-                    Inicio
+                    INICIO
                   </p>
                 </a>
               </li>
@@ -216,7 +212,7 @@ if ($_SESSION['acceso'] == false){
                                 <a href='main.php?view=personas-vista' class='nav-link btn-profile-index' style='color:white'>
                                 <i class='nav-icon fas fa-file-archive'></i>
                                   <p>
-                                    Personas
+                                    PERSONAS
                                   </p>
                                 </a>                  
                               </li>
@@ -227,20 +223,12 @@ if ($_SESSION['acceso'] == false){
                   <?php
                     if($_SESSION['nivelacceso'] == "Administrador" ){
                       echo "
-                        <li class='nav-item'>
-                          <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style='color:white'>
-                          <i class='nav-icon fas fa-file-archive'></i>
-                            <p>
-                              Usuarios
-                            </p>
-                          </a>                  
-                        </li>
 
                          <li class='nav-item'>
                           <a href='main.php?view=planillas-vista' class='nav-link btn-profile-index' style='color:white'>
                           <i class='nav-icon fas fa-file-archive'></i>
                             <p>
-                              Planillas
+                              PLANILLAS
                             </p>
                           </a>                  
                         </li>
@@ -249,7 +237,7 @@ if ($_SESSION['acceso'] == false){
                           <a href='main.php?view=entidad-vista' class='nav-link btn-profile-index' style='color:white'>
                           <i class='nav-icon fas fa-file-archive'></i>
                             <p>
-                              Entidades
+                              ENTIDADES
                             </p>
                           </a>                  
                         </li>
@@ -258,7 +246,7 @@ if ($_SESSION['acceso'] == false){
                           <a href='main.php?view=cargos-vista' class='nav-link btn-profile-index' style='color:white'>
                           <i class='nav-icon fas fa-file-archive'></i>
                             <p>
-                              Cargos
+                              CARGOS
                             </p>
                           </a>                  
                         </li>
@@ -267,7 +255,7 @@ if ($_SESSION['acceso'] == false){
                           <a href='main.php?view=comision-vista' class='nav-link btn-profile-index' style='color:white'>
                           <i class='nav-icon fas fa-file-archive'></i>
                             <p>
-                              Comisiones
+                              COMISIONES
                             </p>
                           </a>                  
                         </li>
@@ -285,10 +273,40 @@ if ($_SESSION['acceso'] == false){
                                 <a href='main.php?view=subirPlanillas-vista' class='nav-link btn-profile-index' style='   color:white'>
                                 <i class='nav-icon fas fa-file-archive'></i>
                                   <p>
-                                    Subir Planillas
+                                    IMPORTAR PLANILLA
                                   </p>
                                 </a>                  
                               </li>
+
+                              <li class='nav-item'>
+                                <a href='main.php?view=consultasGeneral-vista' class='nav-link btn-profile-index' style='   color:white'>
+                                <i class='nav-icon fas fa-file-archive'></i>
+                                  <p>
+                                    CONSULTA PLANILLAS
+                                  </p>
+                                </a>                  
+                              </li>
+
+                               <li class='nav-header'>ACCESOS</li>
+
+                                <li class='nav-item'>
+                                  <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style='color:white'>
+                                  <i class='nav-icon fas fa-file-archive'></i>
+                                    <p>
+                                      USUARIOS
+                                    </p>
+                                  </a>                  
+                                </li>
+
+                                <li class='nav-item'>
+                                  <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style='color:white'>
+                                  <i class='nav-icon fas fa-file-archive'></i>
+                                    <p>
+                                      MI PERFIL
+                                    </p>
+                                  </a>                  
+                                </li>
+
                             ";
                         }
                       ?>  
@@ -300,7 +318,7 @@ if ($_SESSION['acceso'] == false){
                                 <a href='main.php?view=consultaBoletas-vista  ' class='nav-link btn-profile-index' style='color:white'>
                                 <i class='nav-icon fas fa-file-archive'></i>
                                   <p>
-                                    Consultar Boletas
+                                    MIS BOLETAS
                                   </p>
                                 </a>                  
                               </li>

@@ -12461,12 +12461,13 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 /* Colores para el sidebar - opciones 
 #256D72
 #026842
+#373c47 -- Plomos
 
 
 */
 
 aside.main-sidebar {
-  background: #026842 !important;
+  background: #373c47 !important;
   color : black !important;
 }
 
@@ -12475,7 +12476,7 @@ aside.main-sidebar {
 }
 
 aside.main-sidebar .brand-link{
-  background: #026842 !important;
+  background: #373c47 !important;
   color : red !important;
 }
 
@@ -18079,7 +18080,7 @@ body.text-sm .control-sidebar {
 }
 
 .navbar-white {
-  background-color: #fff;
+  background-color: #373c47 !important;
   color: #1f2d3d;
 }
 

@@ -129,6 +129,16 @@ var columnDefsEmpleados = [
   }
 ]
 
+var columnDefsGeneral = [
+    {
+        "data"   : null,
+        render : function(data, type, row){
+            return `<a class="dropdown-item reporte" data-idplanillaDetalle='${data[0]}' href="#"><i class='fas fa-print mr-2'></i>Reporte</a>`;
+        },
+        "targets"    : 6    
+    }
+]
+
 var columnDefsRevision = [
   {
       "data"   : null,

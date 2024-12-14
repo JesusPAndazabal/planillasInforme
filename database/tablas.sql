@@ -92,3 +92,4 @@ CREATE TABLE planillasDetalles
 
 )ENGINE=INNODB;
 
+
