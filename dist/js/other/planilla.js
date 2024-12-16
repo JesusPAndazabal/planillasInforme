@@ -123,6 +123,89 @@ function listarDetPlanillasDni(numeroDocPlanilla) {
     });
 }
 
+function listarBoletasUsuarios() {
+    var anioConsulta = $("#anioConsultasUnicas").val();
+    var mesConsulta = $("#mesConsultasUnicas").val();
+
+    // Mostrar el spinner en el tbody
+    $("#datos-consulta").html(`
+        <tr>
+            <td colspan="10" class="text-center">
+                <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i> Cargando datos, por favor espere...
+            </td>
+        </tr>
+    `);
+
+    var datos = {
+        'op': 'buscarConsultaUsuarios',
+        'numeroDoc': numeroDocPlanilla,
+        'anio': anioConsulta,
+        'mes': mesConsulta
+    };
+
+
+    $.ajax({
+        url: 'controllers/planilla.controller.php',
+        type: 'GET',
+        data: datos,
+        success: function (response) {
+            // Destruir el DataTable si ya fue inicializado
+            if ($.fn.DataTable.isDataTable("#tabla-consulta")) {
+                $("#tabla-consulta").DataTable().destroy();
+            }
+
+            // Reemplazar el contenido del tbody con la respuesta
+            $("#datos-consulta").html(response);
+
+            console.log(response, "response");
+
+            $("#tabla-consulta").DataTable({
+                paging: true,
+                lengthChange: true,
+                pageLength: 8,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json',
+                    emptyTable: ""  // Evitar el mensaje predeterminado de "No hay datos"
+                },
+                searching: false,
+                ordering: false,
+                info: true,
+                autoWidth: false,
+                responsive: true,
+                dom: domTableComplete,
+                buttons: buttonsTableMaster,
+                drawCallback: function(settings) {
+                    // Mostrar u ocultar el spinner según el contenido de la tabla
+                    if (settings.aoData.length === 0) {
+                        // Mostrar el spinner en el tbody
+                        $("#datos-consulta").html(`
+                            <tr>
+                                <td colspan="10" class="text-center">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i> Cargando datos, por favor espere...
+                                </td>
+                            </tr>
+                        `);
+                    } else {
+                        // Si hay datos, ocultar el spinner
+                        $("#spinner").hide();
+                    }
+                }
+            });
+            
+        },
+        error: function () {
+            // Mostrar mensaje de error en el tbody
+            $("#datos-consulta").html(`
+                <tr>
+                    <td colspan="10" class="text-center">
+                        Error al cargar los datos. Intente nuevamente.
+                    </td>
+                </tr>
+            `);
+        }
+    });
+}
+
 function listarConsultasGeneral(){
     var tabla = $("#tabla-consultasGeneral").DataTable();
     tabla.destroy();    
@@ -141,9 +224,6 @@ function listarConsultasGeneral(){
         "columnDefs"    : columnDefsGeneral
     });
 } 
-
-
-
 
 function buscarDetallePlanilla() {
     let numeroDoc = $("#numeroDoc").val().trim();
@@ -195,6 +275,18 @@ $("#mesConsulta").keyup(function(){
     table.column($(this).data('index')).search(this.value).draw();
 });
 
+
+/* BUSQUEDA DE USUARIOS EXTERNAS */
+
+// Evento keyup para buscar por año
+$("#anioConsultasUnicas").on("keyup", function () {
+    listarBoletasUsuarios();
+});
+
+// Evento change para el mes, en caso de que se seleccione un mes
+$("#mesConsultasUnicas").on("change", function () {
+    listarBoletasUsuarios();
+});
 
 
 // Ejecutar búsqueda cuando se hace clic en el botón

@@ -1,5 +1,11 @@
 <?php
 
+ini_set('log_errors', 1);
+ini_set('error_log', 'php-error.log');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 session_start();
 
 require '../vendor/autoload.php'; // PhpSpreadsheet
@@ -8,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 // Conexión a la base de datos
 $mysqli = new mysqli("localhost", "root", "", "planillaSub");
 if ($mysqli->connect_error) {
+    error_log("Error de conexión a la base de datos: " . $mysqli->connect_error);
     die("Error de conexión: " . $mysqli->connect_error);
 }
 
@@ -18,6 +25,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
         case 'importarPlanilla':
             if (isset($_FILES['archivoExcel'])) {
                 $archivo = $_FILES['archivoExcel']['tmp_name'];
+                $nombreArchivo = $_FILES['archivoExcel']['name'];
+                $codigoUnico = uniqid('file_', true); // Generar un código único para el archivo
+
+                // Verificar si el archivo ya ha sido subido
+                $stmt = $mysqli->prepare("SELECT idarchivo FROM archivos_subidos WHERE nombre_archivo = ? LIMIT 1");
+                if (!$stmt) {
+                    error_log("Error al preparar la consulta para verificar archivos duplicados: " . $mysqli->error);
+                    echo json_encode(["success" => false, "message" => "Error interno al procesar la solicitud."]);
+                    break;
+                }
+                $stmt->bind_param("s", $nombreArchivo);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    echo json_encode(["success" => false, "message" => "El archivo ya ha sido subido anteriormente."]);
+                    break;
+                } else {
+                    // Insertar el archivo en la tabla archivos_subidos
+                    $stmt = $mysqli->prepare("INSERT INTO archivos_subidos (codigo_unico, nombre_archivo) VALUES (?, ?)");
+                    $stmt->bind_param("ss", $codigoUnico, $nombreArchivo);
+                    $stmt->execute();
+
+                    if ($stmt->error) {
+                        echo json_encode(["success" => false, "message" => "Error al registrar el archivo: " . $stmt->error]);
+                        break;
+                    }
+                }
 
                 try {
                     // Cargar el archivo Excel
@@ -26,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                     $rows = $sheet->toArray(null, true, true, true);
 
                     foreach ($rows as $key => $row) {
-                        if ($key == 1) continue;
+                        if ($key == 1) continue; // Ignorar la primera fila
 
                         // Extraer los datos de cada columna
                         $orden = $row['A'];
@@ -41,13 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                         $onpAfp = $row['P'];
 
                         //Asignacion Familiar
-                        $asignacionFam = str_replace(',', '', $row['J']); 
+                        $asignacionFam = str_replace(',', '', $row['J'] ?? '');
                         $asignacionFam = floatval($asignacionFam);
+
 
                         //Sueldo Basico
                         $sueldoBasico = str_replace(',', '', $row['K']); 
                         $sueldoBasico = floatval($sueldoBasico);
-                        
+
                         //Reintegro
                         $reintegro = !empty($row['L']) ? floatval(str_replace(',', '', $row['L'])) : null;
 
@@ -64,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                         //Obligatorio Onp
                         $obliOnp = !empty($row['Q']) ? floatval(str_replace(',', '', $row['Q'])) : null;
 
-                        
                         $nombreAfp = $row['R'];
 
                         //Afp Obligatorio
@@ -84,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
 
                         //Remuneracion Neta
                         $netoPagar = !empty($row['X']) ? floatval(str_replace(',', '', $row['X'])) : null;
-          
+
                         //SSalud
                         $ssalud = !empty($row['Y']) ? floatval(str_replace(',', '', $row['Y'])) : null;
 
@@ -99,57 +134,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                         $idPersona = $stmt->insert_id;
 
                         // Insertar en la tabla `planillas`
-                        // Comprobar si ya existe una planilla para el año y mes dados
                         $stmt = $mysqli->prepare("SELECT idplanilla FROM planillas WHERE anio = ? AND mes = ?");
                         $stmt->bind_param("ii", $anio, $mes);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
                         if ($result->num_rows > 0) {
-                            // Si ya existe, obtener el ID de la planilla
                             $row = $result->fetch_assoc();
                             $idPlanilla = $row['idplanilla'];
                         } else {
-                            // Si no existe, insertar un nuevo registro en planillas
                             $stmt = $mysqli->prepare("INSERT INTO planillas (anio, mes) VALUES (?, ?)");
                             $stmt->bind_param("ii", $anio, $mes);
                             $stmt->execute();
-
-                            if ($stmt->error) {
-                                echo json_encode(["success" => false, "message" => "Error al insertar planilla: " . $stmt->error]);
-                                continue;
-                            }
-
-                            // Obtener el ID del nuevo registro
                             $idPlanilla = $stmt->insert_id;
                         }
 
                         //Insertar en la tabla Cargos
-                       //Insertar en la tabla Cargos
-                       if (!empty($cargo)) {
-                        $stmt = $mysqli->prepare("SELECT idcargo FROM cargos WHERE descripcion = ?");
-                        $stmt->bind_param("s", $cargo);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                    
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            $idCargo = $row['idcargo'];
-                        } else {
-                            $stmt = $mysqli->prepare("INSERT INTO cargos (descripcion) VALUES (?)");
+                        if (!empty($cargo)) {
+                            $stmt = $mysqli->prepare("SELECT idcargo FROM cargos WHERE descripcion = ?");
                             $stmt->bind_param("s", $cargo);
                             $stmt->execute();
-                            $idCargo = $stmt->insert_id;
-                        }
-                        } else {
-                            $idCargo = null;  // Si el cargo está vacío, asignar null o un valor por defecto
-                        }
+                            $result = $stmt->get_result();
 
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                                $idCargo = $row['idcargo'];
+                            } else {
+                                $stmt = $mysqli->prepare("INSERT INTO cargos (descripcion) VALUES (?)");
+                                $stmt->bind_param("s", $cargo);
+                                $stmt->execute();
+                                $idCargo = $stmt->insert_id;
+                            }
+                        } else {
+                            $idCargo = null;
+                        }
 
                         //Insertar la tabla comisiones
-                        // Verificar si el nombreAfp está vacío y no intentar insertar una comisión si está vacío
                         if (!empty($onpAfp) && !empty($nombreAfp)) {
-                            // Insertar en la tabla comisiones si no está vacío
                             $stmt = $mysqli->prepare("SELECT idcomision FROM comisiones WHERE tipo = ? AND nombre = ?");
                             $stmt->bind_param("ss", $onpAfp, $nombreAfp);
                             $stmt->execute();
@@ -165,23 +186,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                                 $idComision = $stmt->insert_id;
                             }
                         } else {
-                            // Si está vacío, asignamos un valor nulo o no asignado
-                            $idComision = null;  // O usa un valor predeterminado si prefieres
+                            $idComision = null;
                         }
 
-                        // Verificar si el nombreAfp está vacío
-                        if (empty($nombreAfp)) {
-                            // Si el nombreAfp está vacío, asignar un valor 'vacío' o null
-                            $nombreAfp = null; // O puedes asignar algún valor por defecto si prefieres
-                        }
-
-                        // Insertar en la tabla `planillasDetalles` (esta parte no depende de la existencia en `comisiones`)
+                        // Insertar en la tabla `planillasDetalles`
                         $stmt = $mysqli->prepare("INSERT INTO planillasDetalles (idusuario, idpersona, idcargo, identidad, idcomision, idplanilla, numRegistro, cussp, numCuenta, 
                         fechaIngreso, asignacionFamiliar, sueldoBasico, reintegros, montoAguinaldo, montoInasistencia, montoRem, obliOnp, afpOblig, comisionFlujo, montoprimaSeguro, 
                         essaludVida, totalDescuento, netoPagar, ssalud, montototalAporte) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                        
-                        $idUsuario = 1; // Cambiar por el ID real del usuario que esté realizando la acción
-                        $idEntidad = 1; // Cambiar por el ID real de la entidad correspondiente
+
+                        $idUsuario = 1; // Cambiar por el ID real del usuario
+                        $idEntidad = 1; // Cambiar por el ID real de la entidad
 
                         $stmt->bind_param(
                             "iiiiiiisssddddddddddddddd",
@@ -189,14 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['op'])) {
                             $fechaIngreso, $asignacionFam, $sueldoBasico, $reintegro, $aguinaldo, $montoInasistencia, $montoRemuneracion, $obliOnp,
                             $afpOblig, $comisionFlujo, $primaSeguro, $essaludVida, $totalDescuento, $netoPagar, $ssalud, $totalAportes
                         );
-                        
-                        // Ejecuta la inserción
-                        $stmt->execute();
-                        if ($stmt->error) {
-                            echo json_encode(["success" => false, "message" => "Error al insertar detalle de planilla: " . $stmt->error]);
-                            continue;
-                        }
 
+                        $stmt->execute();
                     }
 
                     echo json_encode(["success" => true, "message" => "Archivo importado correctamente."]);

@@ -29,6 +29,15 @@ class DetallePlanilla extends ModelMaster{
         }
     }
 
+    public function buscarBoletaUsuarios(array $data){
+        try{
+            return parent::execProcedure($data , "spu_filtroConsultasUsuarios",true);
+
+        }catch(Exception $error){
+            die($error->getMessage());
+        }
+    }
+
 }
 
 ?>

@@ -96,6 +96,17 @@ if(isset($_GET['op'])){
         listarDetallePlanillas($data);
     }
 
+    if ($_GET['op'] == 'buscarConsultaUsuarios') {
+        $params = [
+            'numeroDoc' => $_GET['numeroDoc'] ?? null,
+            'anio' => $_GET['anio'] ?? null,
+            'mes' => $_GET['mes'] ?? null
+        ];
+
+        $data = $detallePlanilla->buscarBoletaUsuarios($params);
+        listarDetallePlanillas($data);
+    }
+
 }
 
 ?>

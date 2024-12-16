@@ -49,6 +49,16 @@ class Usuario extends ModelMaster{
         }
     }
 
+    public function actualizarClave(array $data){
+
+        try{    
+           parent::execProcedure($data,"spu_usuarios_actualizarclave", false);   
+        } catch(Exception $error){
+            die($error->getMessage());
+        }
+       
+    }
+
     public function obtenerUsuario(array $data){
         try{
             return parent::execProcedure($data, "spu_usuarios_obtener" , true);

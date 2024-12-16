@@ -32,6 +32,47 @@ BEGIN
 	FROM usuarios WHERE nomuser = _nomuser AND estado = '1';
 END $$
 
+-- Actualizar clave de usuario
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_actualizarclave
+(
+	IN _idusuario 	  INT,
+	IN _claveacceso   VARCHAR(100)
+)
+BEGIN 
+	UPDATE usuarios SET claveacceso = _claveacceso WHERE idusuario = _idusuario;
+END $$
+
+-- obtener a un usuario
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_obtener(IN _idusuario INT)
+BEGIN 
+	SELECT * FROM usuarios
+		WHERE idusuario = _idusuario;
+END $$
+
+-- Actualizar usuario
+DELIMITER $$
+CREATE PROCEDURE spu_modificar_usuarios
+(
+	IN  _idusuario		INT,
+	IN  _nomuser		VARCHAR(30),
+	IN  _correo		VARCHAR(70),	
+	IN  _nivelacceso	CHAR(1),
+	IN  _telefono 		CHAR(11)
+)
+BEGIN 
+	IF _telefono = '' THEN SET _telefono = NULL; END IF;
+	
+	UPDATE usuarios SET 
+		nomuser	      = _nomuser,
+		correo	      = _correo,
+		nivelacceso   = _nivelacceso,
+		telefono      = _telefono
+	WHERE idusuario = _idusuario;	
+END $$
+
+
 -- PLANILLAS
 DELIMITER $$
 CREATE PROCEDURE spu_registrar_planilla
@@ -81,6 +122,32 @@ BEGIN
 	INSERT INTO comisiones (tipo , nombre)
 		VALUES (_tipo , _nombre);
 
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_filtroConsultasUsuarios
+(
+	IN _numeroDoc CHAR(11),
+	IN _anio 	CHAR(4),
+	IN _mes		VARCHAR(40)
+)
+BEGIN 
+
+	-- Si _mes es una cadena vacía, lo convertimos en NULL
+	    IF _mes = '' THEN
+		SET _mes = NULL;
+	    END IF;
+	    
+	       -- Si _anio es una cadena vacía, lo convertimos en NULL
+	    IF _anio = '' THEN
+		SET _anio = NULL;
+	    END IF;
+	    
+	SELECT * 
+	FROM vs_planillaDetalle
+	WHERE (numeroDoc = _numeroDoc OR _numeroDoc IS NULL)
+	  AND (anio = _anio OR _anio IS NULL)
+	  AND (mes = _mes OR _mes IS NULL);
 END $$
 
 

@@ -92,4 +92,10 @@ CREATE TABLE planillasDetalles
 
 )ENGINE=INNODB;
 
+CREATE TABLE archivos_subidos (
+    idarchivo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_archivo VARCHAR(255),
+    codigo_unico VARCHAR(64) -- Hash para verificar si el archivo ya fue subido
+);
+
 

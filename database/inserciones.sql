@@ -15,3 +15,4 @@ SELECT * FROM planillas
 SELECT * FROM comisiones
 SELECT * FROM entidades
 SELECT * FROM planillasDetalles
+SELECT * FROM archivos_subidos

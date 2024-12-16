@@ -299,7 +299,7 @@ if ($_SESSION['acceso'] == false){
                                 </li>
 
                                 <li class='nav-item'>
-                                  <a href='main.php?view=usuarios-vista' class='nav-link btn-profile-index' style='color:white'>
+                                  <a href='main.php?view=perfil-vista' class='nav-link btn-profile-index' style='color:white'>
                                   <i class='nav-icon fas fa-file-archive'></i>
                                     <p>
                                       MI PERFIL
@@ -322,6 +322,15 @@ if ($_SESSION['acceso'] == false){
                                   </p>
                                 </a>                  
                               </li>
+
+                              <li class='nav-item'>
+                                  <a href='main.php?view=perfil-vista' class='nav-link btn-profile-index' style='color:white'>
+                                  <i class='nav-icon fas fa-file-archive'></i>
+                                    <p>
+                                      MI PERFIL
+                                    </p>
+                                  </a>                  
+                                </li>
                             ";
                         }
                       ?>  
@@ -473,6 +482,8 @@ if ($_SESSION['acceso'] == false){
       $("#content-data").load(`views/inicio.php`);
   });
 
+  
+  localStorage.setItem("usuarioBoleta" , <?php echo $_SESSION['idusuario'];?>);
   localStorage.setItem("nomuserBoleta", "<?php echo htmlspecialchars($_SESSION['nomuser']); ?>");
       
 </script>
